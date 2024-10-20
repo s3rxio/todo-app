@@ -1,0 +1,19 @@
+.app {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 2rem;
+
+  &__title {
+    font-size: 3.5rem;
+    font-weight: 200;
+
+    text-align: center;
+    text-transform: lowercase;
+
+    margin-top: 2rem;
+  }
+}

@@ -6,6 +6,7 @@ export enum TodoAction {
   ADD = "ADD",
   TOGGLE = "TOGGLE",
   REMOVE = "REMOVE",
+  CLEAR_COMPLETED = "CLEAR_COMPLETED",
 }
 
 export interface TodosAction {
@@ -48,6 +49,12 @@ export const todosReducer: Reducer<Todo[], TodosAction> = (tasks, action) => {
 
       return tasks.filter((task) => task.id !== action.todoId);
     }
+    case TodoAction.CLEAR_COMPLETED: {
+      const hasCompleted = tasks.some((task) => task.completed);
+      if (!hasCompleted) return tasks;
+
+      return tasks.filter((task) => !task.completed);
+    }
     default: {
       throw Error("Unknown action: " + action.type);
     }
@@ -67,6 +74,10 @@ export const toggleTodo = (todoId: number) => ({
 export const removeTodo = (todoId: number) => ({
   type: TodoAction.REMOVE,
   todoId,
+});
+
+export const clearCompleted = () => ({
+  type: TodoAction.CLEAR_COMPLETED,
 });
 
 export const initialState: Todo[] = JSON.parse(

@@ -4,6 +4,8 @@ import {
   useTodos,
   ListTodo,
   FilterHandler,
+  useTodosDispatch,
+  clearCompleted,
 } from "@/entities/todo";
 import styles from "./todos.module.scss";
 import { useCallback, useState } from "react";
@@ -17,6 +19,7 @@ enum Filter {
 
 export const Todos = () => {
   const { todos } = useTodos();
+  const { dispatch } = useTodosDispatch();
   const [filter, setFilter] = useState<Filter>(Filter.None);
   const activeCount = todos.filter((todo) => !todo.completed).length;
 
@@ -76,8 +79,7 @@ export const Todos = () => {
         </div>
         <button
           className={styles.todos__clear}
-          onClick={() => console.warn("TODO:")}
-          disabled
+          onClick={() => dispatch(clearCompleted())}
         >
           <span>Clear completed</span>
         </button>

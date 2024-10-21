@@ -81,7 +81,7 @@ export const Todos = () => {
           className={styles.todos__clear}
           onClick={() => dispatch(clearCompleted())}
         >
-          <span>Clear completed</span>
+          Clear completed
         </button>
       </div>
     </div>

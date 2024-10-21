@@ -1,4 +1,4 @@
-import { AllHTMLAttributes, FC, useId } from "react";
+import { AllHTMLAttributes, FC, useId, useState } from "react";
 import styles from "./todo.module.scss";
 import { Todo as TodoModel } from "../../model/model";
 import { useTodosDispatch } from "../../model/hooks";
@@ -11,6 +11,27 @@ interface TodoProps extends AllHTMLAttributes<HTMLDivElement> {
 export const Todo: FC<TodoProps> = ({ todo, className, ...props }) => {
   const { dispatch } = useTodosDispatch();
   const completedCheckbox = useId();
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const handleToggle = () => {
+    if (isDisabled) {
+      return;
+    }
+
+    setIsDisabled(true);
+    dispatch(toggleTodo(todo.id));
+    setIsDisabled(false);
+  };
+
+  const handleRemove = () => {
+    if (isDisabled) {
+      return;
+    }
+
+    setIsDisabled(true);
+    dispatch(removeTodo(todo.id));
+    setIsDisabled(false);
+  };
 
   return (
     <div className={clsx(styles.todo, className)} {...props}>
@@ -20,7 +41,7 @@ export const Todo: FC<TodoProps> = ({ todo, className, ...props }) => {
         type="checkbox"
         id={completedCheckbox}
         checked={todo.completed}
-        onChange={() => dispatch(toggleTodo(todo.id))}
+        onChange={handleToggle}
         className={styles.todo__checkbox}
       />
       <p
@@ -32,10 +53,7 @@ export const Todo: FC<TodoProps> = ({ todo, className, ...props }) => {
         {todo.task}
       </p>
 
-      <button
-        className={styles.todo__remove}
-        onClick={() => dispatch(removeTodo(todo.id))}
-      >
+      <button className={styles.todo__remove} onClick={handleRemove}>
         &times;
       </button>
     </div>

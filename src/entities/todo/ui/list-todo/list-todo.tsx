@@ -4,12 +4,13 @@ import styles from "./list-todo.module.scss";
 
 interface ListTodoProps {
   todos: TodoModel[];
-  render: (todo: TodoModel, i?: number) => JSX.Element;
+  render: (todo: TodoModel, i: number) => JSX.Element;
+  reverse?: boolean;
 }
-export const ListTodo: FC<ListTodoProps> = ({ todos, render }) => {
+export const ListTodo: FC<ListTodoProps> = ({ todos, render, reverse }) => {
   return (
     <div className={styles.listTodo}>
-      {todos.map((todo, i) => render(todo, i))}
+      {(reverse ? todos.reverse() : todos).map((todo, i) => render(todo, i))}
     </div>
   );
 };

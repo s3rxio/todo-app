@@ -21,3 +21,9 @@ body,
   background-color: var(--bg-color-primary);
   color: var(--text-color-primary);
 }
+
+button,
+input[type="submit"],
+input[type="checkbox"] {
+  cursor: pointer;
+}

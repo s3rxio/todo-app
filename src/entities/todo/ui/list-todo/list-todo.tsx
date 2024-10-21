@@ -1,33 +1,36 @@
-import { FC } from "react";
+import { AllHTMLAttributes, FC } from "react";
 import { Todo as TodoModel } from "../../model/model";
 import styles from "./list-todo.module.scss";
+import clsx from "clsx";
 
-interface ListTodoProps {
+export type FilterHandler = (todo: TodoModel, i: number) => boolean;
+
+interface ListTodoProps extends AllHTMLAttributes<HTMLDivElement> {
   todos: TodoModel[];
   render: (todo: TodoModel, i: number) => JSX.Element;
   reverse?: boolean;
-  onlyActive?: boolean;
-  onlyCompleted?: boolean;
+  filter?: FilterHandler | null;
 }
+
 export const ListTodo: FC<ListTodoProps> = ({
   todos,
   render,
   reverse,
-  onlyActive,
-  onlyCompleted,
+  filter,
+  className,
+  ...props
 }) => {
   let handledTodos = [...todos];
 
-  if (onlyActive) {
-    handledTodos = todos.filter((todo) => !todo.completed);
-  } else if (onlyCompleted) {
-    handledTodos = todos.filter((todo) => todo.completed);
+  if (filter) {
+    handledTodos = todos.filter(filter);
   }
   if (reverse) {
     handledTodos = handledTodos.reverse();
   }
+
   return (
-    <div className={styles.listTodo}>
+    <div className={clsx(styles.listTodo, className)} {...props}>
       {handledTodos.map((todo, i) => render(todo, i))}
     </div>
   );

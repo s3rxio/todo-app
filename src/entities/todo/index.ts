@@ -9,3 +9,4 @@ export { addTodo, toggleTodo, removeTodo } from "./model/reducer";
 export { Todo } from "./ui/todo/todo";
 export { AddTodo } from "./ui/add-todo/add-todo";
 export { ListTodo } from "./ui/list-todo/list-todo";
+export type { FilterHandler } from "./ui/list-todo/list-todo";

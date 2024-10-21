@@ -1,6 +1,6 @@
 import { Todo } from "./model";
 import { Reducer } from "react";
-import { TODOS_KEY } from "./storage";
+import { TODOS_KEY } from "./consts";
 
 export enum TodoAction {
   ADD = "ADD",

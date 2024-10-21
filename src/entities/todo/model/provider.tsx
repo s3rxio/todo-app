@@ -1,7 +1,7 @@
 import { FC, useEffect, useReducer } from "react";
 import { TodosContext, TodosDispatchContext } from "./context";
 import { initialState, todosReducer } from "./reducer";
-import { TODOS_KEY } from "./storage";
+import { TODOS_KEY } from "./consts";
 
 export interface TodosProviderProps {
   children: React.ReactNode;

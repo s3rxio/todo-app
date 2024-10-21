@@ -1,0 +1,15 @@
+.todos {
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.1));
+
+  &__addTodo {
+    border-bottom: 1px solid var(--border-color-primary);
+  }
+
+  &__todo {
+    border-bottom: 1px solid var(--border-color-primary);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}

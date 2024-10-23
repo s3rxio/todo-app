@@ -23,6 +23,7 @@ export const AddTodo: FC<AddTodoProps> = ({ className, ...props }) => {
     setTask("");
     setIsDisabled(false);
   };
+
   return (
     <form
       onSubmit={handleSubmit}

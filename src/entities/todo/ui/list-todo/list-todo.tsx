@@ -23,7 +23,7 @@ export const ListTodo: FC<ListTodoProps> = ({
   let handledTodos = [...todos];
 
   if (filter) {
-    handledTodos = todos.filter(filter);
+    handledTodos = handledTodos.filter(filter);
   }
   if (reverse) {
     handledTodos = handledTodos.reverse();

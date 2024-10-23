@@ -8,36 +8,27 @@ import {
   clearCompleted,
 } from "@/entities/todo";
 import styles from "./todos.module.scss";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 
 enum Filter {
-  Active = "active",
-  Completed = "completed",
-  None = "none",
+  Active,
+  Completed,
+  None,
 }
 
 export const Todos = () => {
   const { todos } = useTodos();
   const { dispatch } = useTodosDispatch();
   const [filter, setFilter] = useState<Filter>(Filter.None);
-  const activeCount = todos.filter((todo) => !todo.completed).length;
 
-  const onlyActiveFilter = useCallback<FilterHandler>(
-    (todo) => !todo.completed,
-    []
-  );
-
-  const onlyCompletedFilter = useCallback<FilterHandler>(
-    (todo) => todo.completed,
-    []
-  );
-
-  const filterMap = {
-    [Filter.Active]: onlyActiveFilter,
-    [Filter.Completed]: onlyCompletedFilter,
+  const filterMap: Record<Filter, FilterHandler | null> = {
+    [Filter.Active]: (todo) => !todo.completed,
+    [Filter.Completed]: (todo) => todo.completed,
     [Filter.None]: null,
   };
+
+  const activeCount = todos.filter(filterMap[Filter.Active]!).length;
 
   return (
     <div className={styles.todos}>
